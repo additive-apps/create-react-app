@@ -150,7 +150,7 @@ module.exports = function(webpackEnv) {
     entry: paths.appIndexWidgetJs,
     output: {
       libraryTarget: 'umd',
-      library: 'additiveeu_voucher',
+      library: appPackageJson.widget,
       path: paths.appWidgetBuild,
       filename: 'index.js',
       // Prevents conflicts when multiple Webpack runtimes (from different apps)
