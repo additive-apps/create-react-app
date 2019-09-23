@@ -520,8 +520,7 @@ module.exports = function(webpackEnv) {
       new CompressionPlugin({
         // Only compress widget.js
         test: 'widget.js',
-        // Delete original widget.js and keep only zipped version
-        deleteOriginalAssets: true,
+        filename: '[path]',
       }),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
