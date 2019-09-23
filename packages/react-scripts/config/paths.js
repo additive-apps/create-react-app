@@ -80,7 +80,9 @@ module.exports = {
   appBuild: resolveApp('build'),
   appPublic: resolveApp('public'),
   appHtml: resolveApp('public/index.html'),
+  // Entry file for the normal widget build
   appIndexJs: resolveModule(resolveApp, 'src/index'),
+  // Entry file for the npm version build of the widget
   appIndexWidgetJs: resolveModule(resolveApp, 'src/index.module'),
   appWidgetBuild: resolveApp('dist'),
   appPackageJson: resolveApp('package.json'),
@@ -105,7 +107,9 @@ module.exports = {
   appBuild: resolveApp('build'),
   appPublic: resolveApp('public'),
   appHtml: resolveApp('public/index.html'),
+  // Entry file for the normal widget build
   appIndexJs: resolveModule(resolveApp, 'src/index'),
+  // Entry file for the npm version build of the widget
   appIndexWidgetJs: resolveModule(resolveApp, 'src/index.module'),
   appWidgetBuild: resolveApp('dist'),
   appPackageJson: resolveApp('package.json'),
