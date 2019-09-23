@@ -8,9 +8,20 @@
 // @remove-on-eject-end
 'use strict';
 
-// Do this as the first thing so that any code reading it knows the right env.
-process.env.BABEL_ENV = 'production';
-process.env.NODE_ENV = 'production';
+// Set enviroment passed by arguments (--prod = production)
+// Default enviroment is development
+const arg = process.argv[2];
+
+switch (arg) {
+  case '--prod':
+    process.env.BABEL_ENV = 'production';
+    process.env.NODE_ENV = 'production';
+    break;
+
+  default:
+    process.env.BABEL_ENV = 'development';
+    process.env.NODE_ENV = 'development';
+}
 
 // Makes the script crash on unhandled rejections instead of silently
 // ignoring them. In the future, promise rejections that are not handled will

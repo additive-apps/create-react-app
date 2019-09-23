@@ -18,6 +18,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const InlineChunkHtmlPlugin = require('react-dev-utils/InlineChunkHtmlPlugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const safePostCssParser = require('postcss-safe-parser');
@@ -147,12 +148,15 @@ module.exports = function(webpackEnv) {
   return {
     mode: 'production',
     bail: true,
-    entry: paths.appIndexWidgetJs,
+    entry: {
+      index: paths.appIndexWidgetJs,
+      widget: paths.appIndexWidgetJs,
+    },
     output: {
       libraryTarget: 'umd',
       library: appPackageJson.widget,
       path: paths.appWidgetBuild,
-      filename: 'index.js',
+      filename: '[name].js',
       // Prevents conflicts when multiple Webpack runtimes (from different apps)
       // are used on the same page.
       jsonpFunction: `webpackJsonp${appPackageJson.name}`,
@@ -512,6 +516,13 @@ module.exports = function(webpackEnv) {
       ],
     },
     plugins: [
+      // Generates a gziped version of widget.js
+      new CompressionPlugin({
+        // Only compress widget.js
+        test: 'widget.js',
+        // Delete original widget.js and keep only zipped version
+        deleteOriginalAssets: true,
+      }),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         Object.assign(
