@@ -18,6 +18,12 @@ switch (arg) {
     process.env.NODE_ENV = 'production';
     break;
 
+  case '--test':
+    // Set test environment (for netlify)
+    process.env.BABEL_ENV = 'test';
+    process.env.NODE_ENV = 'test';
+    break;
+
   default:
     process.env.BABEL_ENV = 'development';
     process.env.NODE_ENV = 'development';
