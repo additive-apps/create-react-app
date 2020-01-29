@@ -1,7 +1,9 @@
-# react-scripts
+# ADDITIVE+APPS Fork
 
-This package includes scripts and configuration used by [Create React App](https://github.com/facebook/create-react-app).<br>
-Please refer to its documentation:
+## How to build/release
 
-- [Getting Started](https://facebook.github.io/create-react-app/docs/getting-started) – How to create a new app.
-- [User Guide](https://facebook.github.io/create-react-app/) – How to develop apps bootstrapped with Create React App.
+We currently only use the `react-scripts` package. So to avoid building each package with lerna go intos react-scripts package folder (`/packages/react-scripts`) and build/release that folder.
+
+## To know
+
+- This package must me public, otherwise it wont work
