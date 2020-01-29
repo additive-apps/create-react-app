@@ -80,7 +80,11 @@ module.exports = {
   appBuild: resolveApp('build'),
   appPublic: resolveApp('public'),
   appHtml: resolveApp('public/index.html'),
+  // Entry file for the normal widget build
   appIndexJs: resolveModule(resolveApp, 'src/index'),
+  // Entry file for the npm version build of the widget
+  appIndexWidgetJs: resolveModule(resolveApp, 'src/index.module'),
+  appWidgetBuild: resolveApp('dist'),
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
   appTsConfig: resolveApp('tsconfig.json'),
@@ -103,7 +107,11 @@ module.exports = {
   appBuild: resolveApp('build'),
   appPublic: resolveApp('public'),
   appHtml: resolveApp('public/index.html'),
+  // Entry file for the normal widget build
   appIndexJs: resolveModule(resolveApp, 'src/index'),
+  // Entry file for the npm version build of the widget
+  appIndexWidgetJs: resolveModule(resolveApp, 'src/index.module'),
+  appWidgetBuild: resolveApp('dist'),
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
   appTsConfig: resolveApp('tsconfig.json'),
@@ -139,7 +147,11 @@ if (
     appBuild: resolveOwn('../../build'),
     appPublic: resolveOwn(`${templatePath}/public`),
     appHtml: resolveOwn(`${templatePath}/public/index.html`),
+    // Entry file for the normal widget build
     appIndexJs: resolveModule(resolveOwn, `${templatePath}/src/index`),
+    // Entry file for the npm version build of the widget
+    appIndexWidgetJs: resolveModule(resolveOwn, `${templatePath}/src/index.module`),
+    appWidgetBuild: resolveOwn('../../dist'),
     appPackageJson: resolveOwn('package.json'),
     appSrc: resolveOwn(`${templatePath}/src`),
     appTsConfig: resolveOwn(`${templatePath}/tsconfig.json`),
