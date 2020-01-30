@@ -1,7 +1,7 @@
 {
   "name": "additive-react-scripts",
-  "version": "0.1.6",
-  "description": "(3.1.1) Configuration and scripts for Create React App.",
+  "version": "0.2.0.beta.2",
+  "description": "(3.3.0) Configuration and scripts for Create React App.",
   "repository": {
     "type": "git",
     "url": "https://github.com/additive-apps/create-react-app.git",
