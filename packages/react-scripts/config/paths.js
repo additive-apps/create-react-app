@@ -15,7 +15,7 @@ const url = require('url');
 // Make sure any symlinks in the project folder are resolved:
 // https://github.com/facebook/create-react-app/issues/637
 const appDirectory = fs.realpathSync(process.cwd());
-const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
+const resolveApp = (relativePath) => path.resolve(appDirectory, relativePath);
 
 const envPublicUrl = process.env.PUBLIC_URL;
 
@@ -30,7 +30,7 @@ function ensureSlash(inputPath, needsSlash) {
   }
 }
 
-const getPublicUrl = appPackageJson =>
+const getPublicUrl = (appPackageJson) =>
   envPublicUrl || require(appPackageJson).homepage;
 
 // We use `PUBLIC_URL` environment variable or "homepage" field to infer
@@ -62,7 +62,7 @@ const moduleFileExtensions = [
 
 // Resolve file paths in the same order as webpack
 const resolveModule = (resolveFn, filePath) => {
-  const extension = moduleFileExtensions.find(extension =>
+  const extension = moduleFileExtensions.find((extension) =>
     fs.existsSync(resolveFn(`${filePath}.${extension}`))
   );
 
@@ -82,6 +82,8 @@ module.exports = {
   appHtml: resolveApp('public/index.html'),
   // Entry file for the normal widget build
   appIndexJs: resolveModule(resolveApp, 'src/index'),
+  // Entry file for the normal widget build with polyfills
+  appIndexJsPolyfill: resolveModule(resolveApp, 'src/index.polyfill'),
   // Entry file for the npm version build of the widget
   appIndexWidgetJs: resolveModule(resolveApp, 'src/index.module'),
   appWidgetBuild: resolveApp('dist'),
@@ -98,7 +100,8 @@ module.exports = {
 };
 
 // @remove-on-eject-begin
-const resolveOwn = relativePath => path.resolve(__dirname, '..', relativePath);
+const resolveOwn = (relativePath) =>
+  path.resolve(__dirname, '..', relativePath);
 
 // config before eject: we're in ./node_modules/react-scripts/config/
 module.exports = {
@@ -109,6 +112,8 @@ module.exports = {
   appHtml: resolveApp('public/index.html'),
   // Entry file for the normal widget build
   appIndexJs: resolveModule(resolveApp, 'src/index'),
+  // Entry file for the normal widget build with polyfills
+  appIndexJsPolyfill: resolveModule(resolveApp, 'src/index.polyfill'),
   // Entry file for the npm version build of the widget
   appIndexWidgetJs: resolveModule(resolveApp, 'src/index.module'),
   appWidgetBuild: resolveApp('dist'),
@@ -149,8 +154,16 @@ if (
     appHtml: resolveOwn(`${templatePath}/public/index.html`),
     // Entry file for the normal widget build
     appIndexJs: resolveModule(resolveOwn, `${templatePath}/src/index`),
+    // Entry file for the normal widget build with polyfills
+    appIndexJsPolyfill: resolveModule(
+      resolveOwn,
+      `${templatePath}/src/index.polyfill`
+    ),
     // Entry file for the npm version build of the widget
-    appIndexWidgetJs: resolveModule(resolveOwn, `${templatePath}/src/index.module`),
+    appIndexWidgetJs: resolveModule(
+      resolveOwn,
+      `${templatePath}/src/index.module`
+    ),
     appWidgetBuild: resolveOwn('../../dist'),
     appPackageJson: resolveOwn('package.json'),
     appSrc: resolveOwn(`${templatePath}/src`),
