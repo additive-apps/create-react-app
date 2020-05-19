@@ -10,7 +10,6 @@
 
 const fs = require('fs');
 const isWsl = require('is-wsl');
-const path = require('path');
 const webpack = require('webpack');
 const resolve = require('resolve');
 const PnpWebpackPlugin = require('pnp-webpack-plugin');
@@ -62,7 +61,7 @@ const sassModuleRegex = /\.module\.(scss|sass)$/;
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
-module.exports = function(webpackEnv) {
+module.exports = function (webpackEnv) {
   const isEnvDevelopment = webpackEnv === 'development';
   const isEnvProduction = webpackEnv === 'production';
 
@@ -144,13 +143,19 @@ module.exports = function(webpackEnv) {
 
   console.log('BUILD ', paths.appIndexJs);
 
+  const entries = {
+    index: paths.appIndexJs,
+    widget: paths.appIndexJs,
+  };
+
+  if (fs.existsSync(paths.appIndexJsPolyfill)) {
+    entries.widgetPolyfill = paths.appIndexJsPolyfill;
+  }
+
   return {
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
     bail: true,
-    entry: {
-      index: paths.appIndexJs,
-      widget: paths.appIndexJs,
-    },
+    entry: entries,
     output: {
       libraryTarget: 'umd',
       library: appPackageJson.widget,
@@ -251,8 +256,8 @@ module.exports = function(webpackEnv) {
       // `web` extension prefixes have been added for better support
       // for React Native Web.
       extensions: paths.moduleFileExtensions
-        .map(ext => `.${ext}`)
-        .filter(ext => useTypeScript || !ext.includes('ts')),
+        .map((ext) => `.${ext}`)
+        .filter((ext) => useTypeScript || !ext.includes('ts')),
       alias: {
         // Support React Native Web
         // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
@@ -519,7 +524,7 @@ module.exports = function(webpackEnv) {
       // Generates a gziped version of widget.js
       new CompressionPlugin({
         // Only compress widget.js
-        test: 'widget.js',
+        test: /^(widget.js|widgetPolyfill.js)/,
         filename: '[path]',
       }),
       // Generates an `index.html` file with the <script> injected.
@@ -595,7 +600,7 @@ module.exports = function(webpackEnv) {
         fileName: 'asset-manifest.json',
         publicPath: publicPath,
         generate: (seed, files) => {
-          const manifestFiles = files.reduce(function(manifest, file) {
+          const manifestFiles = files.reduce(function (manifest, file) {
             manifest[file.name] = file.path;
             return manifest;
           }, seed);
