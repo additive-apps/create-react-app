@@ -524,7 +524,7 @@ module.exports = function (webpackEnv) {
       // Generates a gziped version of widget.js
       new CompressionPlugin({
         // Only compress widget.js
-        test: /^(widget.js|widgetPolyfill.js)/,
+        test: /^(widget.js|widgetPolyfill.js|vendors~[a-z-]+.js)/,
         filename: '[path]',
       }),
       // Generates an `index.html` file with the <script> injected.
