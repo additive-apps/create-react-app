@@ -152,7 +152,6 @@ module.exports = function(webpackEnv) {
       widget: paths.appIndexWidgetJs,
     },
     output: {
-      libraryTarget: 'umd',
       library: appPackageJson.widget,
       path: paths.appWidgetBuild,
       filename: '[name].js',
