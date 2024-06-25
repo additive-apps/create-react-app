@@ -157,7 +157,6 @@ module.exports = function (webpackEnv) {
     bail: true,
     entry: entries,
     output: {
-      libraryTarget: 'umd',
       library: appPackageJson.widget,
       path: paths.appBuild,
       filename: '[name].js',
